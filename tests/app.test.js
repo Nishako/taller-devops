@@ -1,7 +1,11 @@
 const request = require('supertest');
-const app = require('../src/app');
+const { app, server } = require('../src/app');
 
 describe('MathAPI Taller', () => {
+    afterAll(() => {
+        server.close();
+    });
+
     test('health check responde ok', async () => {
         const res = await request(app).get('/health');
         expect(res.statusCode).toBe(200);
