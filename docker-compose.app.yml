@@ -1,0 +1,29 @@
+services:
+  mathapi:
+    build: .
+    container_name: mathapi-taller-dev
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+    networks:
+      - app_network
+
+  mongodb:
+    image: mongo:7
+    container_name: mongodb-taller
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
